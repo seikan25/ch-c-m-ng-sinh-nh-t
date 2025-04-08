@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chúc Mừng Sinh Nhật!</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background: linear-gradient(135deg, #ffd6e8, #ffe6fa, #e0ffff);
+      font-family: 'Segoe UI', sans-serif;
+      transition: background 2s ease;
+    }
+
+    .container {
+      text-align: center;
+      padding-top: 80px;
+    }
+
+    h1 {
+      font-size: 4em;
+      color: #ff69b4;
+      text-shadow: 0 0 10px white, 0 0 20px #ff1493;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px white; }
+      to { text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff1493; }
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 15px 40px;
+      font-size: 1.2em;
+      border: none;
+      background-color: #ff69b4;
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(255, 105, 180, 0.6);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff1493;
+      transform: scale(1.05);
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      width: 40px;
+      height: 60px;
+      border-radius: 50% 50% 45% 45%;
+      animation: floatUp 10s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-120vh); opacity: 0; }
+    }
+
+    .firework {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: gold;
+      border-radius: 50%;
+      box-shadow:
+        30px -30px red,
+        -30px -30px yellow,
+        -30px 30px blue,
+        30px 30px green,
+        0px -40px orange,
+        0px 40px pink;
+      animation: explode 1.5s ease-out;
+      opacity: 0;
+    }
+
+    @keyframes explode {
+      0% { transform: scale(0.2); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: hsl(0, 100%, 70%);
+      animation: fall 5s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+    .custom-alert {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      z-index: 1000;
+      display: none;
+      text-align: center;
+    }
+
+    .custom-alert h2 {
+      margin-bottom: 10px;
+      color: #ff1493;
+    }
+
+    .custom-alert p {
+      margin-bottom: 20px;
+    }
+
+    .custom-alert button {
+      padding: 10px 20px;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 999;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🎉 Chúc Mừng Sinh Nhật 🎂</h1>
+  <img src="Cream-Birthday-Cake-Light-Purple-Illustration-cute-cake-decorating_608915_wh860__1_-removebg-preview.png" height="200" alt="bánh sinh nhật"><br/>
+  <button onclick="startParty()">Bấm vào đây đi🎈</button>
+</div>
+<div class="overlay" id="overlay"></div>
+  <div class="custom-alert" id="customAlert">
+    <h2>🎉 Thông Báo!</h2>
+    <p>Chúc Em Ngày nào Cũng Vui Ngày Càng Xinh Đẹp Nha Nha và Sớm Có Người Yêu Nha 😘</p>
+    <button onclick="closeAlert()">Đóng</button>
+  </div>
+<script>
+     
+      
+
+    function closeAlert() {
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("customAlert").style.display = "none";
+    }
+  function startParty() {
+    document.getElementById("overlay").style.display = "block";
+      document.getElementById("customAlert").style.display = "block";
+    setInterval(() => {
+      const fw = document.createElement("div");
+      fw.classList.add("firework");
+      fw.style.left = Math.random() * 100 + "vw";
+      fw.style.top = Math.random() * 100 + "vh";
+      document.body.appendChild(fw);
+      setTimeout(() => fw.remove(), 1500);
+    }, 500);
+    let balloons = 0;
+    const balloonInterval = setInterval(() => {
+      const balloon = document.createElement("div");
+      balloon.classList.add("balloon");
+      balloon.style.left = Math.random() * 100 + "vw";
+      balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 75%)`;
+      balloon.style.animationDuration = 5 + Math.random() * 5 + "s";
+      document.body.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 10000);
+      balloons++;
+      if (balloons >= 50) clearInterval(balloonInterval);
+    }, 200);
+
+    for (let i = 0; i < 100; i++) {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+      confetti.style.animationDuration = (5 + Math.random() * 3) + "s";
+      confetti.style.animationDelay = (Math.random() * 5) + "s";
+      document.body.appendChild(confetti);
+    }
+  }
+</script>
+
+</body>
+</html>
